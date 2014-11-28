@@ -17,7 +17,5 @@ $ rake db:seed
 | tower1@gmail.com | 123456 |
 | tower2@gmail.com | 123456 |
 
-```
-
 ## 测试
 `guard`
