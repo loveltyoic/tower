@@ -1,0 +1,55 @@
+<div ng-controller="EventCtrl">
+  <div class="container workspace simple-stack simple-stack-transition">
+    <div class="page page-root simple-pjax">
+      <div class="page-inner" id="page-events" data-page-name="动态" data-since="2014-11-23 14:38:27 UTC">
+        <div class="filters">
+          <span class="filters-title">筛选动态</span>
+          <div class="mcw-pop-select filter-member"  ng-click="showFilter()">
+            <span class="selected-text">{{selectedMember.name||'所有成员'}}</span><span class="icon-arrow fa fa-chevron-down"></span>
+            <input type="hidden" name="by_member" value="" id="filter-member">
+          </div>
+        </div>
+
+        <div class="team-events">
+          <div class="events-day weekend" data-absdate="2014-11-23T00:00:00+08:00">
+            <h4 class="events-day-title">今</h4>
+            <div class="events-day-content">
+              <div class="events-ancestor" data-ancestor-guid="1a3101f8ad19469094d70a4bb6430562">
+                <h5 class="events-ancestor-title">
+                  <a href="/projects/1a3101f8ad19469094d70a4bb6430562" target="_blank" title="熟悉Tower"></a>
+                </h5>
+                <%= render 'event' %>           
+              </div>
+            </div>
+          </div>
+        </div>
+        <a id="btn-load-more">加载更多内容</a>
+      </div>
+    </div>
+  </div>
+  <div class="simple-popover events-filter-member-popover mcw-pop-select-popover mcw-pop-select-float direction-bottom-center" style="top: 60px; left: 240px;" ng-show="shouldShowFilter">
+    <div class="simple-popover-content"><div class="groups-members">
+        <div class="members">
+          <h5>成员</h5>
+          <ul class="mcw-pop-select-list">
+            <li data-member-id="-1" ng-click="selectMember({name: ''})">所有成员</li>
+            <li ng-repeat="member in members" ng-click="selectMember(member)">
+              {{member.name}}
+            </li>
+          </ul>
+        </div>
+      </div></div>
+    <div class="simple-popover-arrow">
+      <i class="arrow arrow-shadow-1"></i>
+      <i class="arrow arrow-shadow-0"></i>
+      <i class="arrow arrow-border"></i>
+      <i class="arrow arrow-basic"></i>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  window.projectIds = <%= @project_ids %>;
+  window.subscribeToken = "<%= @subscribe_token %>"
+</script>

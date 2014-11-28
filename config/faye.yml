@@ -1,0 +1,13 @@
+defaults: &defaults
+  faye_server: "http://127.0.0.1:8080/push"
+  faye_client_url: "http://127.0.0.1:8080/push"
+  faye_token: "f1853530ef8bb41e9e850a2e85736558"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,0 +1,172 @@
+<div class="wrapper" ng-controller="TodoCtrl">
+  <div class="header">
+    <h1 class="logo"><a href="/teams/<%= current_team.id %>/projects" title="首页" data-stack="" data-stack-root="">Tower</a></h1>
+    <ul class="nav">
+      <li id="nav-events"><a href="/teams/<%= current_team.id %>/events" data-stack="" data-stack-root="">动态</a></li>
+    </ul>
+  </div>
+
+
+
+
+  <div class="container workspace simple-stack simple-stack-transition">
+    <div class="page page-root simple-pjax">
+
+      <div class="page-inner" id="page-todo">
+
+        <div class="topic">
+          <div class="project-info">
+          </div>
+          <div class="todolist">
+            <ul class="todos">
+
+              <li class="todo">
+
+                <div class="todo-actions actions">
+                  <div class="inr">
+                    <a ng-click="act('start')" class="run" title="标记成正在进行中" ng-show="todo.status == 'pending'">执行</a>
+                    <a ng-click="act('pause')" class="pause" title="暂停" ng-show="todo.status == 'ongoing'">暂停</a>
+
+                    <a ng-click="showTodoEdit" class="edit" title="编辑" ng-hide="todo.status == 'finished'">编辑</a>
+                    <a ng-click="act('destroy')" class="del" title="删除">删除</a>
+                  </div>
+                </div>
+
+                <div class="todo-wrap">
+                  <div class="simple-checkbox" ng-class="{checked: todo.status == 'finished'}" ng-click="act('finish')"><input type="checkbox" name="todo-done" style="display: none;"></div>
+
+
+                  <span class="todo-content">
+                    <span class="raw">{{todo.name}}</span>
+                    <span class="content-non-linkable">
+                      <span class="todo-rest" title="asd">{{ todo.name }}</span>
+                    </span>
+                    <span class="content-linkable">
+                      <a ng-href="/projects/{{todo.project_id}}/todos/{{todo.id}}" class="todo-rest" data-stack="true" title="{{todo.name}}">{{ todo.name }}</a>
+                    </span>
+                  </span>
+
+
+                  <a class="label todo-assign-due" ng-click="shouldShowConfig=true">{{assignee.name}} {{deadline.toDateString()}}</a>
+
+              <div class="simple-popover events-filter-member-popover mcw-pop-select-popover mcw-pop-select-float direction-bottom-center" style="top: 60px; left: 240px;" ng-show="shouldShowConfig">
+
+                <div class="simple-popover-content">
+                  将任务指派给
+                  <div class="groups-members">
+                    <div class="members">
+                      <ul class="mcw-pop-select-list">
+                        <li ng-repeat="member in members" ng-click="act('reassign', {to_id:member.id})">
+                          {{member.name}}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  截止日期
+                  <input type="text" pick-a-date="deadline" pick-a-date-options="options" />           
+                </div>
+              </div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="comments streams">
+
+          <div ng-repeat="event in events">
+            <div ng-if="event.type == 'ActionEvent'">
+              <div class="event event-common" ng-class="'event-todo-'+event.action_type" id="event-9601476">
+
+                <a class="from" target="_blank"><img alt="loveltyoic" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
+                <i class="icon-event"></i>
+
+                <div class="event-main">
+                  <div class="event-head">
+                    <a class="event-created-at">{{event.created_at}}</a>
+                    <span class="event-actor">
+                      <a class="link-member" target="_blank">{{event.initiator.name}}</a>
+                    </span>
+                    <span class="event-action">
+                      {{event.action}}
+                    </span>
+                    <span class="event-text">
+                      <span class="emphasize">
+                        <a href="/projects/180bd57faa0a4d279473879c7067d1c3/todos/8eb04c9b309642a2a2a71fb98ec72369" class="todo-rest" data-stack="true" title="asd">{{event.target.name}}</a>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div ng-if="event.type == 'CommentEvent'">
+              <div class="comment" id="{{event.comment.id}}">
+                <a class="avatar-wrap">
+                  <img class="avatar" src="/assets/default_avatars/waves.jpg" width="50" height="50">
+                </a>
+
+
+
+                <div class="comment-main">
+                  <div class="info">
+                    <a class="author">{{event.initiator.name}}</a>
+                    <a class="create-time">{{event.created_at}}</a>
+                  </div>
+
+                  <div class="comment-content editor-style"><p>{{event.comment.content}}</p></div>
+
+                </div>
+              </div>        
+            </div>
+          </div>
+
+
+
+
+
+          <div class="comment comment-form new">
+
+            <form class="form form-editor form-new-comment">
+
+              <a class="avatar-wrap">
+                <img class="avatar" width="50" height="50" src="/assets/default_avatars/waves.jpg">
+              </a>
+
+              <div class="comment-main">
+                <div class="form-item">
+                  <div class="form-field">
+                    <div class="fake-textarea" data-droppable="" ng-hide="shouldShowCommentForm" ng-click="shouldShowCommentForm = true">点击发表评论</div>
+                    <textarea id="txt-new-comment" tabindex="1" autofocus="true" data-validate="custom" data-autosave="new-comment-content" data-mention-group="180bd57faa0a4d279473879c7067d1c3" data-mention-type="project" class="comment-content" name="comment_content" ng-show="shouldShowCommentForm" ng-model="newComment"></textarea>
+                  </div>
+                </div>
+
+
+
+                <div class="form-buttons" ng-show="shouldShowCommentForm">
+                  <button tabindex="1" ng-click="addComment()" class="btn btn-primary btn-create-comment">发表评论</button>
+                  <button tabindex="2" type="button" class="btn btn-x btn-cancel-create-comment" ng-click="cancelComment()">取消</button>
+                </div>
+              </div>
+            </form>
+
+
+          </div>
+
+
+        </div>
+
+
+
+      </div></div>
+      <div class="footer">
+        © <a href="http://mycolorway.com" target="_blank">彩程设计</a>
+      </div>
+
+
+
+    </div>
+  <script>
+    window.subscribeToken = "<%= @subscribe_token %>";
+
+  </script>

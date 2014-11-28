@@ -1,0 +1,14 @@
+<%= form_tag("/sessions/login") do %>
+  <%= label_tag(:email, "Email") %>
+  <%= text_field_tag(:email) %>
+  <%= label_tag(:password, "密码") %>
+  <%= password_field_tag(:password) %>
+  <button name="commit" type="submit" value="登录" class="btn btn-submit">登录</button>
+<% end %>
+<style>
+form {
+  width: 22%;
+  margin: auto;
+  margin-top: 7%;
+}
+</style>

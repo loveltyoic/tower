@@ -1,0 +1,33 @@
+@import 'events';
+@import 'picker';
+.streams .event.event-todo-schedule .icon-event, .streams .event.event-reschedule .icon-event {
+background-position: 0 -294px;
+}
+
+.streams .event.event-todo-create .icon-event {
+background-position: 0 -462px;
+}
+
+.streams .event.event-todo-start .icon-event {
+background-position: 0 -168px;
+}
+
+.streams .event.event-todo-pause .icon-event {
+background-position: 0 -210px;
+}
+
+.todolist .todo .todo-actions .pause {
+display: block;
+}
+
+.streams .event.event-todo-finish .icon-event {
+background-position: 0 0px;
+}
+
+.streams .event.event-todo-assign .icon-event, .streams .event.event-todo-reassign .icon-event, {
+background-position: 0 -84px;
+}
+
+.streams .event.event-todo-destroy .icon-event {
+background-position: 0 -42px;
+}

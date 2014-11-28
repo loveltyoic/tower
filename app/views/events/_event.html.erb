@@ -1,0 +1,29 @@
+<div ng-repeat="event in events|filter : { initiator: { name: selectedMember.name } }">
+<div class="event event-common event-todo-add">
+
+  <a class="from" target="_blank"><img alt="loveltyoic" class="avatar" src="https://tower.im/assets/default_avatars/waves.jpg"></a>
+  <i class="icon-event"></i>
+
+  <div class="event-main">
+    <div class="event-head">
+      <a class="event-created-at">{{ event.created_at }}</a>
+      <span class="event-actor">
+        <a href="#" class="link-member" target="_blank">{{ event.initiator.name }}</a>
+      </span>
+      <span class="event-action">
+        {{ event.action }}
+      </span>
+      <span class="event-text">
+        <span class="emphasize">
+          <a ng-href="/projects/{{event.project_id}}/{{event.target_type.toLowerCase()+'s'}}/{{event.target_id}}" class="todo-rest" data-stack="true" title="Faker::Hacker.say_something_smart">{{ event.target.name }}</a>
+        </span>
+      </span>
+    </div>
+    
+    <div class="event-body" ng-if="event.comment">
+        <a ng-href="/projects/{{event.project_id}}/todos/{{event.target_id}}#{{event.comment.id}}" class="event-text" data-stack="true" title="xx">{{ event.comment.content }}</a>
+    </div>
+  </div>
+
+</div>
+</div>
